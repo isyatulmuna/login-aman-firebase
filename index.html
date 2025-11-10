@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Login Aman Firebase - Peach Neon</title>
+
+  <!-- Hubungkan ke file CSS -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/10.6.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.6.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.6.0/firebase-firestore-compat.js"></script>
+</head>
+
+<body>
+  <div class="container">
+    <h2>🍑 Login Aman Firebase</h2>
+
+    <input id="email" type="email" placeholder="Alamat Email">
+    <input id="password" type="password" placeholder="Kata Sandi (min. 6 karakter)">
+
+    <div class="btn-group">
+      <button id="loginBtn">Login</button>
+      <button id="registerBtn">Register</button>
+      <button id="logoutBtn" class="logout">Logout</button>
+    </div>
+
+    <p id="result">Silakan login atau daftar akun baru.</p>
+  </div>
+
+  <!-- Hubungkan ke file JavaScript -->
+  <script src="script.js"></script>
+</body>
+</html>

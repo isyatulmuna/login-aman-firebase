@@ -1,0 +1,95 @@
+// Konfigurasi Firebase kamu
+const firebaseConfig = {
+  apiKey: "AIzaSyDS5ecXWFNEliTpyOwjnmh9tMiltA1iE4c",
+  authDomain: "login-aman-firebase-2a170.firebaseapp.com",
+  projectId: "login-aman-firebase-2a170",
+  storageBucket: "login-aman-firebase-2a170.firebasestorage.app",
+  messagingSenderId: "599202239849",
+  appId: "1:599202239849:web:26a8ce6d3d94cbf03a99f8"
+};
+
+// Inisialisasi Firebase
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const db = firebase.firestore();
+
+// Tangkap elemen
+const result = document.getElementById("result");
+const loginBtn = document.getElementById("loginBtn");
+const registerBtn = document.getElementById("registerBtn");
+const logoutBtn = document.getElementById("logoutBtn");
+
+// =========================
+// Fungsi Register
+// =========================
+registerBtn.addEventListener("click", async () => {
+  const email = document.getElementById("email").value;
+  const pass = document.getElementById("password").value;
+
+  if (!email || !pass) {
+    result.textContent = "⚠ Email dan password wajib diisi.";
+    return;
+  }
+
+  try {
+    const userCredential = await auth.createUserWithEmailAndPassword(email, pass);
+    const user = userCredential.user;
+
+    // Kirim email verifikasi
+    await user.sendEmailVerification();
+
+    // Simpan ke Firestore
+    await db.collection("users").doc(user.uid).set({
+      email: email,
+      createdAt: new Date(),
+      emailVerified: false
+    });
+
+    result.textContent = "✅ Akun berhasil dibuat! Cek email untuk verifikasi.";
+    result.style.color = "#ff7a7a";
+  } catch (error) {
+    result.textContent = "❌ " + error.message;
+    result.style.color = "red";
+  }
+});
+
+// =========================
+// Fungsi Login
+// =========================
+loginBtn.addEventListener("click", async () => {
+  const email = document.getElementById("email").value;
+  const pass = document.getElementById("password").value;
+
+  try {
+    const userCredential = await auth.signInWithEmailAndPassword(email, pass);
+    const user = userCredential.user;
+
+    if (user.emailVerified) {
+      result.textContent = "✅ Login berhasil! Selamat datang, " + user.email;
+      result.style.color = "#ff7a7a";
+
+      // Update status Firestore
+      await db.collection("users").doc(user.uid).update({
+        emailVerified: true
+      });
+
+    } else {
+      result.textContent = "⚠ Email belum diverifikasi. Cek email kamu.";
+      result.style.color = "orange";
+      await auth.signOut();
+    }
+
+  } catch (error) {
+    result.textContent = "❌ " + error.message;
+    result.style.color = "red";
+  }
+});
+
+// =========================
+// Fungsi Logout
+// =========================
+logoutBtn.addEventListener("click", async () => {
+  await auth.signOut();
+  result.textContent = "👋 Kamu telah logout.";
+  result.style.color = "#ff7a7a";
+});

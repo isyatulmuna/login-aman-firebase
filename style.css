@@ -1,0 +1,81 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #ffb6b9, #ffecd2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.container {
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 8px 25px rgba(255, 170, 150, 0.5);
+  width: 350px;
+  padding: 40px;
+  text-align: center;
+  transition: all 0.3s ease-in-out;
+}
+
+.container:hover {
+  transform: scale(1.03);
+  box-shadow: 0 10px 30px rgba(255, 150, 130, 0.6);
+}
+
+h2 {
+  color: #ff7a7a;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+input {
+  width: 90%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ffd6d6;
+  border-radius: 10px;
+  outline: none;
+  font-size: 14px;
+}
+
+input:focus {
+  border-color: #ff7a7a;
+  box-shadow: 0 0 8px #ffb3b3;
+}
+
+.btn-group {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+}
+
+button {
+  flex: 1;
+  margin: 5px;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  background-color: #ff7a7a;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  background-color: #ff9595;
+  box-shadow: 0 0 10px #ffc0cb;
+}
+
+button.logout {
+  background-color: #fca17d;
+}
+
+p {
+  margin-top: 15px;
+  font-size: 14px;
+  color: #555;
+}
